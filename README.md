@@ -10,6 +10,17 @@ s(x=5, y=3)
 ```
 
 ```
+i = Variable()
+i = i + 1
+i = i + 1
+
+i(0)
+>> 2
+i(4)
+>> 6
+```
+
+```
 from var import Variable
 
 x = Variable()
