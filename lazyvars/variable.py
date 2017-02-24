@@ -71,7 +71,7 @@ class Variable:
         return self.get_value() == x
 
     def __is_constant__(self):
-        return not isinstance(self.__value__, tuple) and self.__value__ is not None
+        return not isinstance(self.__value__, tuple) and not callable(self.__value__) and self.__value__ is not None
 
     def __is_unbound__(self):
         return self.__value__ is None
@@ -94,6 +94,8 @@ class Variable:
                 return x.__value__
             if isinstance(x.__value__, tuple):
                 return Variable.__do_op__(*x.__value__)
+            elif callable(x.__value__):
+                return x.__value__()
         return x
 
     @staticmethod
@@ -115,3 +117,4 @@ class Variable:
 for method in Variable.__override__:
     (lambda a: setattr(Variable, method, lambda x, y: x.__operator__(y, a)))(method)
 del Variable.__override__
+del method
